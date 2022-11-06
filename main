@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+	int senha[4];	
+	int tent[4];
+	int confere[4];
+	int vit = 0;
+	bool zero = false, um = false, dois = false;
+		
+void gerarSenha(){
+		srand(time(NULL)); 
+	
+	for(int i = 0; i < 4; i++){
+		senha[i] = rand() % 10;
+		printf("%d ", senha[i]);
+	}
+}
+
+void capturaTent(){
+	
+		for(int i = 0; i < 4; i++){
+		scanf("%d", &tent[i]);
+	}	
+}
+
+void confTent(){
+		for(int i = 0; i < 4; i++){
+		for (int j = i ; j < 4; j++){
+			
+			if (tent[i] == senha[j]){
+				confere[i] = tent[i];																
+			}
+			else if (tent[i] == senha[i]){
+				vit++;
+			}
+			
+		}		
+	}
+}
+
+void feedbackJogador(){
+	
+	for(int i = 0; i < 4; i++){
+		for(int j = i; j < 4; j++){
+	
+	if (confere[i] != senha[j] && confere[i] != senha[i]){//precido de mais segurança para o 1 n entrar aqui
+		zero = true;
+	
+	}
+	else if (confere[i] != senha[i] && confere[i] == senha[j]){
+		um = true;
+	}
+	else if(confere[i] == senha[i]){
+		dois= true;
+	}
+		}
+		
+		if ( zero == true){
+			printf("0 ");
+		} if (um == true){
+			printf("1 ");
+		}else if (dois == true){
+			printf("2 ");
+		}
+		
+		zero = false;
+		um = false;
+		dois = false;
+	}
+}
+
+void vitoria(){
+	if (vit == 4){
+		printf("Parabens vc ganhou!");
+	}
+}
+
+int main(){
+	
+	int qntent = 10;
+	gerarSenha();
+	printf("\n");
+
+	while (qntent > 0){
+		
+		capturaTent();
+		confTent();		
+		feedbackJogador();		
+		vitoria();
+		qntent --;			
+		
+		printf("\n tentativa = %d \n", qntent);
+	}
+
+
+
+	
+
+
+	
+/*	for(int i = 0; i < 4; i++){
+		printf("%d ", confere[i]);
+	}
+*/
+
+	
+	
+}
